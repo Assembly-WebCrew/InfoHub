@@ -1,0 +1,27 @@
+{
+  "webui": {
+    "secret": "kittensfromouterspace",
+    "port": 1337,
+    "users": [
+      {"id": 1, "username": "admin", "password": "34df4", "role": "0"}
+    ]
+  },
+  "hub": {
+    "outputs": {
+      "web": {
+        "name": "Web API",
+        "module": "http-api",
+        "config": { "filename": "web.db" }
+      },
+      "irc2": {
+        "name": "#yourchannel",
+        "module": "irc",
+        "config": {
+          "server": "irc.ircserver.com",
+          "channel": "#yourchannel",
+          "nick": "Botnick"
+        }
+      }
+    }
+  }
+}

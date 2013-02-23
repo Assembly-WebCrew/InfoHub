@@ -1,23 +1,35 @@
 extends layout
 
 block body
-  div(ng-controller='AppCtrl')
-    h2 Hello {{name}}
-    ul.menu
-      li
-        a(href='view1') view1
-      li
-        a(href='view2') view2
 
-    div(ng-view)
+  // Login form 
+  div.login-container(ng-controller='LoginController')
+    form.form-login(ng-submit='submit()')
+      h2 Please, log in to continue
+      input.input-block-level(ng-model='user', type='text', placeholder='Username')
+      input.input-block-level(ng-model='pass', type='password', placeholder='Password')
+      button.btn.btn-large.btn-primary(type='submit') Sign in
 
-    div
-      | Angular seed app: v
-      span(app-version)
+  // Content controls 
+  div.main-container.row(ng-controller='HubController')
+    h1 Info Hub
+    form.broadcast-form(ng-submit='broadcast()')
+      div.input-append.message-box.control-group(ng-class='status')
+        input.input-block-level(ng-model='message', type='text',
+          placeholder='Broadcast here...')
+        button.btn.btn-primary(type='submit', ng-disabled='status') Send
+      ul.output-modules.btn-group
+        li.btn(ng-repeat='output in outputs', data-toggle='buttons-checkbox',
+               ng-click='toggle(output.id)', id='{{output.id}}') {{output.name}} 
+          i.icon-ok-sign(ng-show='output.online')
+          i.icon-remove-circle(ng-hide='output.online')
+
+  script(src='js/jquery.js')
+  script(src='js/bootstrap.js')
 
   script(src='js/lib/angular/angular.js')
-  script(src='js/app.js')
-  script(src='js/services.js')
-  script(src='js/controllers.js')
-  script(src='js/filters.js')
-  script(src='js/directives.js')
+  script(src='js/http-auth.js')
+
+  script(src='js/main.js')
+  script(src='js/login.js')
+  script(src='js/broadcast.js')

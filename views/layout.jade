@@ -1,9 +1,10 @@
 !!!
-html(ng-app="myApp")
+html
   head
     meta(charset='utf8')
     base(href='/hub/')
-    title Angular Express Seed App
+    title Assembly InfoHub
+    link(rel='stylesheet', href='css/bootstrap.css')
     link(rel='stylesheet', href='css/app.css')
-  body
+  body.info-hub-application.waiting-for-angular(ng-app='info-hub')
     block body
