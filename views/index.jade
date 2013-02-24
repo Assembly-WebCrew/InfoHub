@@ -19,10 +19,16 @@ block body
           placeholder='Broadcast here...')
         button.btn.btn-primary(type='submit', ng-disabled='status') Send
       ul.output-modules.btn-group
-        li.btn(ng-repeat='output in outputs', data-toggle='buttons-checkbox',
-               ng-click='toggle(output.id)', id='{{output.id}}') {{output.name}} 
+        li.btn(ng-repeat='output in outputs',
+               data-toggle='buttons-checkbox',
+               ng-click='toggle(output.id)',
+               id='{{output.id}}',
+               tooltip-directive
+               title='{{output.description}}') {{output.name}} 
           i.icon-ok-sign(ng-show='output.online')
           i.icon-remove-circle(ng-hide='output.online')
+
+    // p(ng-bind='outputs | json')
 
   script(src='js/jquery.js')
   script(src='js/bootstrap.js')
@@ -32,4 +38,4 @@ block body
 
   script(src='js/main.js')
   script(src='js/login.js')
-  script(src='js/broadcast.js')
+  script(src='js/hub-controller.js')

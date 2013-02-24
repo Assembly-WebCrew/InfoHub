@@ -32,7 +32,8 @@ exports.outputs = function (hub) {
       return {
         id: out,
         name: o.name,
-        online: hub.outputs[out].online
+        online: hub.outputs[out].online,
+        description: o.description
       }
     }));
   };

@@ -1,4 +1,4 @@
-angular.module('info-hub').controller({
+InfoHub.controller({
   HubController: function ($scope, $http, $timeout) {
     $scope.status = '';
     $scope.filter = {};
@@ -10,10 +10,13 @@ angular.module('info-hub').controller({
       }).success(function (res) {
         $scope.status = 'success';
         $scope.message = 'Success!';
+        $timeout(function () {
+          $scope.status = '';
+          $scope.message = '';
+        }, 1000);
       }).error(function  () {
         $scope.status = 'error';
         $scope.message = 'Failure!';
-      }).then(function () {
         $timeout(function () {
           $scope.status = '';
           $scope.message = '';
@@ -29,8 +32,20 @@ angular.module('info-hub').controller({
     });
 
     $scope.toggle = function (id) {
-      console.log(id);
       $scope.filter[id] = !$('#' + id).hasClass('active');
     }
   }
+});
+
+InfoHub.directive('tooltipDirective', function() {
+  // Return the directive link function.
+  return function(scope, element, attrs) { 
+
+  // watch the expression, and alert the class.
+  //the directive has access to the whole element
+  scope.$watch(attrs.outputDirective, function (value) {
+      element.tooltip({ placement: 'bottom', container: '.broadcast-form' });
+  });
+      
+}
 });

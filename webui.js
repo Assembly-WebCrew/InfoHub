@@ -85,8 +85,15 @@ function WebUI(hub) {
 
   app.get('/', routes.index);
 
-  app.post('/login', passport.authenticate('local'), function(req, res) {
-    res.status(200).end();
+  app.post('/login', function(req, res, next) {
+    passport.authenticate('local', function (err, user, info) {
+      if (err) { res.status(500).end(); return; }
+      if (!user) { res.status(403).end(); return; } // IMPORTANT: Can't use 401 Unauthorized.
+      req.logIn(user, function (err) {
+        if (err) { res.status(500).end(); return; }
+        res.status(200).end();
+      });
+    })(req, res, next);
   });
 
   // JSON API
@@ -100,7 +107,7 @@ function WebUI(hub) {
   // Start server
 
   app.listen(config.port, function () {
-    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+    //console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
   });
 
 }

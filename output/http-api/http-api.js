@@ -16,7 +16,6 @@ HTTPAPI.prototype.init = function (cb) {
     db.run('create table if not exists messages(message text, timestamp datetime)', function (err) {
       if (err) { throw err; }
       self.online = true;
-      console.log('success');
     });
   })
   cb(null);

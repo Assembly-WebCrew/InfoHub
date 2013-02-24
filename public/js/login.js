@@ -1,4 +1,4 @@
-angular.module('info-hub').controller({
+InfoHub.controller({
   LoginController: function ($scope, $http, authService) {
     $scope.submit = function() {
       $http.post('login', {username: $scope.user, password: $scope.pass}).success(function() {

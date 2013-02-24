@@ -6,6 +6,6 @@ The app is built with [Node.js](http://nodejs.org), [Express](http://expressjs.c
 
 ## Status
 
-* Simple input from web to web and irc works.
+* Simple input from web to web, irc and twitter works.
 * Can choose where to send.
 * Output status display.

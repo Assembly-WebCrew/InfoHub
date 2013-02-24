@@ -1,9 +1,4 @@
-angular.module('info-hub', ['http-auth-interceptor'])
-  /**
-   * This directive will find itself inside HTML as a class,
-   * and will remove that class, so CSS will remove loading image and show app content.
-   * It is also responsible for showing/hiding login form.
-   */
+var InfoHub = angular.module('info-hub', ['http-auth-interceptor'])
   .directive('infoHubApplication', function() {
     return {
       restrict: 'C',
