@@ -4,11 +4,13 @@ block body
 
   // Login form 
   div.login-container(ng-controller='LoginController')
-    form.form-login(ng-submit='submit()')
-      h2 Please, log in to continue
-      input.input-block-level(ng-model='user', type='text', placeholder='Username')
-      input.input-block-level(ng-model='pass', type='password', placeholder='Password')
-      button.btn.btn-large.btn-primary(type='submit') Sign in
+    form.form-login(ng-submit='login()')
+      div.control-group(ng-class='status')
+        h2 Please, log in to continue
+        input.input-block-level(ng-model='user', type='text', placeholder='Username')
+        input.input-block-level(ng-model='pass', type='password', placeholder='Password')
+        button.btn.btn-large.btn-primary(type='submit') Sign in
+        span.info Login failed, please try again.
 
   // Content controls 
   div.main-container.row(ng-controller='HubController')
@@ -18,17 +20,9 @@ block body
         input.input-block-level(ng-model='message', type='text',
           placeholder='Broadcast here...')
         button.btn.btn-primary(type='submit', ng-disabled='status') Send
-      ul.output-modules.btn-group
-        li.btn(ng-repeat='output in outputs',
-               data-toggle='buttons-checkbox',
-               ng-click='toggle(output.id)',
-               id='{{output.id}}',
-               tooltip-directive
-               title='{{output.description}}') {{output.name}} 
-          i.icon-ok-sign(ng-show='output.online')
-          i.icon-remove-circle(ng-hide='output.online')
+      output-toggles
 
-    // p(ng-bind='outputs | json')
+    //- p(ng-bind='filter | json')
 
   script(src='js/jquery.js')
   script(src='js/bootstrap.js')

@@ -31,21 +31,46 @@ InfoHub.controller({
       });
     });
 
-    $scope.toggle = function (id) {
-      $scope.filter[id] = !$('#' + id).hasClass('active');
-    }
   }
 });
 
-InfoHub.directive('tooltipDirective', function() {
-  // Return the directive link function.
-  return function(scope, element, attrs) { 
+InfoHub.directive('outputToggles', function () {
+  return {
+    template: '<ul class="btn-group output-modules"></ul>',
+    replace: true,
+    restrict: 'E',
+    compile: function (tElem, tAttrs, transclude) {
+      return {
+        post: function (scope, iElem, iAttrs, controller) {
+          scope.$watch('outputs', function (newVal, oldVal) {
+            angular.forEach(newVal, function (v, k) {
+              var butt = angular.element('<li />')
+                .addClass('btn')
+                .attr({
+                  'data-toggle': 'buttons-checkbox',
+                  'id': v.id,
+                  'title': v.description })
+                .tooltip({
+                  placement: 'bottom',
+                  container: tElem.parent() })
+                .text(v.name);
 
-  // watch the expression, and alert the class.
-  //the directive has access to the whole element
-  scope.$watch(attrs.outputDirective, function (value) {
-      element.tooltip({ placement: 'bottom', container: '.broadcast-form' });
-  });
-      
-}
+              if (v.online) {
+                butt.append(' <i class="icon-ok-sign" />');
+              } else {
+                butt.append(' <i class="icon-remove-sign" />');
+              }
+
+              butt.on('click', function (e) {
+                scope.filter[v.id] = !scope.filter[v.id];
+                scope.$digest();
+              });
+
+              iElem.append(butt);
+            });
+          })
+        }
+      }
+    }
+  }
 });
